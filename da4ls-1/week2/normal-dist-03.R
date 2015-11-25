@@ -28,5 +28,3 @@ library(dplyr)
 library(rafalib)
 y <- filter(dat,Sex=="M") %>% filter(Diet=="chow") %>% select(Bodyweight) %>% unlist
 
-
-
