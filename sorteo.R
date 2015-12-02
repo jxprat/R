@@ -1,0 +1,7 @@
+sorteo <- read.csv("desde1900.csv")
+sorteo <- unlist(sorteo)
+print(sorteo)
+mean(sorteo)
+sd(sorteo)
+print(mean(sorteo %% 10))
+hist(sorteo %% 10)
