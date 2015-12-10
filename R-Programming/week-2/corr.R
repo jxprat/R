@@ -10,7 +10,9 @@ corr <- function(directory, threshold = 0) {
   ## Return a numeric vector of correlations
   ## NOTE: Do not round the result!
   
-  for (num in id) {
+  vec <- vector("numeric")
+  ndx <- 1
+  for (num in 1:332) {
     num <- toString(num)
     if(nchar(num) == 1) {
       nom <- paste("00", num, ".csv", sep='')
@@ -20,8 +22,17 @@ corr <- function(directory, threshold = 0) {
     else {
       nom <- paste(num, ".csv", sep='')
     }
+    # 
+    # Mejor usar list.files(directory) que devuelve un vector con los
+    # nombres de todos los ficheros que hay alli. Recorremos el vector ...
+    #
     nom <- paste(directory, "/", nom, sep = '')
     dat <- read.csv(nom)
     
+    if(sum(complete.cases(dat[["sulfate"]], dat[["nitrate"]])) > threshold) {
+      vec[ndx] <- cor(dat[["sulfate"]], dat[["nitrate"]], use = "complete.obs")
+      ndx <- ndx + 1
+    }
   }
+  return(vec)
 }
