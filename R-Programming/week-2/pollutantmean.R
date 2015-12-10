@@ -12,8 +12,8 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   ## Return the mean of the pollutant across all monitors list
   ## in the 'id' vector (ignoring NA values)
   ## NOTE: Do not round the result! 217.77.17
-  means <- vector("numeric", length = length(id))
-  ndx <- 1
+
+  valors <- vector("numeric")
   for (num in id) {
     num <- toString(num)
     if(nchar(num) == 1) {
@@ -26,8 +26,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     }
     nom <- paste(directory, "/", nom, sep = '')
     dat <- read.csv(nom)
-    means[ndx] <- mean(dat["sulfate"], na.rm = TRUE)
-    ndx <- ndx + 1
+    valors <- c(valors, dat[[pollutant]])
   }
-  print (means)
+  mean(valors, na.rm = TRUE)
 }
